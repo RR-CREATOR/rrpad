@@ -57,24 +57,20 @@ encoder.map = [((KC.VOLU, KC.VOLD, KC.NO),)]
 keyboard.modules.append(encoder)
 
 brightness_mode = False
-last_toggle_state = False
 
-def after_matrix_scan(keyboard):
-    global brightness_mode, last_toggle_state
-    enc_btn_pressed = keyboard.keys[0].pressed
-    if enc_btn_pressed and not last_toggle_state:
-        brightness_mode = not brightness_mode
-        if brightness_mode:
-            encoder.map = [((KC.BRIGHTNESS_UP, KC.BRIGHTNESS_DOWN, KC.NO),)]
-        else:
-            encoder.map = [((KC.VOLU, KC.VOLD, KC.NO),)]
-    last_toggle_state = enc_btn_pressed
+def toggle_encoder_mode(keyboard):
+    global brightness_mode
+    brightness_mode = not brightness_mode
+    if brightness_mode:
+        encoder.map = [((KC.BRIGHTNESS_UP, KC.BRIGHTNESS_DOWN, KC.NO),)]
+    else:
+        encoder.map = [((KC.VOLU, KC.VOLD, KC.NO),)]
 
-keyboard.after_matrix_scan = after_matrix_scan
+TOGGLE_ENCODER_MODE = KC.MACRO(toggle_encoder_mode)
 
 keyboard.keymap = [
     [
-        KC.NO, KC.NO, KC.NO,
+        TOGGLE_ENCODER_MODE, KC.NO, KC.NO,
         COPY, KC.NO, KC.NO,
         PASTE, KC.NO, KC.NO,
         KC.NO, KC.NO, KC.NO
