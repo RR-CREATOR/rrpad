@@ -48,7 +48,8 @@ keyboard.extensions.append(
 macros = Macros()
 keyboard.modules.append(macros)
 
-ALT_TAB = KC.MACRO(Press(KC.LALT), Tap(KC.TAB), Release(KC.LALT))
+COPY = KC.MACRO(Press(KC.LCTRL), Tap(KC.C), Release(KC.LCTRL))
+PASTE = KC.MACRO(Press(KC.LCTRL), Tap(KC.V), Release(KC.LCTRL))
 
 encoder = EncoderHandler()
 encoder.pins = ((ENC_A, ENC_B, None),)
@@ -73,9 +74,9 @@ keyboard.after_matrix_scan = after_matrix_scan
 
 keyboard.keymap = [
     [
-        KC.NO, ALT_TAB, KC.NO,
         KC.NO, KC.NO, KC.NO,
-        KC.NO, KC.NO, KC.NO,
+        COPY, KC.NO, KC.NO,
+        PASTE, KC.NO, KC.NO,
         KC.NO, KC.NO, KC.NO
     ]
 ]
